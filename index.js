@@ -1,16 +1,22 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
+const connectDatabase = require("./helpers/database/connectDatabase");
+const port = 3000; // Dinleme portunu belirleme
 
 // Middleware'leri kullanma
 app.use(express.json()); // JSON parsing middleware
 app.use(cors());
 
+connectDatabase();
+
+//#region Routes
 const loginRoutes = require("./routes/loginRoutes");
 app.use("/api/login", loginRoutes);
 
 const userRoutes = require("./routes/userRoutes");
-app.use("/api/user", userRoutes);
+app.use("/api/users", userRoutes);
+//#endregion
 
 app.get("/dene", (req, res) => {
   // İstemci tarafında bir POST isteği gönderme
@@ -46,10 +52,6 @@ app.get("/dene", (req, res) => {
     .catch((error) => console.error("Hata:", error));
 });
 
-// Dinleme portunu belirleme
-const port = 3000;
-
 app.listen(port, () => {
   console.log(`Sunucu ${port} portunda çalışıyor...`);
 });
-//gjk

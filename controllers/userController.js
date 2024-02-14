@@ -1,23 +1,30 @@
-exports.getData = (req, res) => {
-  let data = [
-    {
-      name: "Ahmet",
-      surname: "Yılmaz",
-      age: "10",
-      email: "ejeyd@example.com",
-    },
-    {
-      name: "Mehmet",
-      surname: "Yılmaz",
-      age: "20",
-      email: "ejeydasdf@example.com",
-    },
-    {
-      name: "Ayşe",
-      surname: "Yılmaz",
-      age: "21",
-      email: "ejeyd123@example.com",
-    },
-  ];
-  res.json(data);
+const userService = require("../src/core/services/UserService");
+const User = require("../src/core/entities/User");
+const Reponse = require("../src/core/dtos/response/Response");
+
+exports.createUser = async (req, res) => {
+  try {
+    var user = new User({
+      name: req.body.name,
+      email: req.body.email,
+      password: req.body.password,
+    });
+    const savedUser = await userService.addAsync(user);
+
+    res
+      .status(201)
+      .json(new Response(true, "User created successfully", savedUser));
+  } catch (error) {
+    res.status(400).json(new Response(false, error.message));
+  }
+};
+
+exports.getUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const user = await userService.getAsync(user);
+    res.status(201).json(new Response(true, "Successfully", user));
+  } catch (error) {
+    res.status(400).json(new Response(false, error.message));
+  }
 };
