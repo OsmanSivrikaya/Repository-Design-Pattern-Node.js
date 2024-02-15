@@ -1,25 +1,31 @@
 "use strict";
 
-const productRepository = require("../repository/ProductRepository");
+const ProductRepository = require("../repository/ProductRepository");
 
-module.exports = class ProductService {
+class ProductService {
+  constructor() {
+    this.productRepository = new ProductRepository();
+  }
+
   getAllAsync = async () => {
-    return await productRepository.getAllAsync();
+    return await this.productRepository.getAllAsync();
   };
 
   getAsync = async (id) => {
-    return await productRepository.getAsync(id);
+    return await this.productRepository.getAsync(id);
   };
 
   addAsync = async (product) => {
-    return await productRepository.addAsync(product);
+    return await this.productRepository.addAsync(product);
   };
 
   updateAsync = async (id, product) => {
-    return await productRepository.updateAsync(id, product);
+    return await this.productRepository.updateAsync(id, product);
   };
 
   removeAsync = async (id) => {
-    return await productRepository.removeAsync(id);
+    return await this.productRepository.removeAsync(id);
   };
-};
+}
+
+module.exports = new ProductService();

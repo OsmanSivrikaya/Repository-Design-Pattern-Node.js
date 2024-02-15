@@ -1,7 +1,7 @@
 "use strict";
 
-const userService = require("../src/core/services/UserService");
-const Response = require("../src/core/dtos/response/Response");
+const userService = require("../../src/core/services/UserService");
+const Response = require("../../src/core/dtos/response/Response");
 
 class LoginController {
   constructor() {

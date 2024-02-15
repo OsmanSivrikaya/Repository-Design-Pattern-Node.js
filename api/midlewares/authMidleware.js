@@ -1,5 +1,6 @@
-const secretKey = "öyle güzeldiki gülüşü"; // JWT için gizli anahtarınız
 const jwt = require("jsonwebtoken");
+const constans = require("../config/constants");
+const secretKey = constans.JWT.SECRET_KEY;
 
 // JWT ile kimlik doğrulaması için middleware
 const authenticateJWT = (req, res, next) => {

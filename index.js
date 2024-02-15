@@ -2,20 +2,21 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 const connectDatabase = require("./helpers/database/connectDatabase");
-const port = 3000; // Dinleme portunu belirleme
+const PORT = 3000; // Dinleme portunu belirleme
 
 // Middleware'leri kullanma
 app.use(express.json()); // JSON parsing middleware
 app.use(cors());
 
-connectDatabase();
+//db erişimi şuanlık kapalı
+//connectDatabase();
 
 //#region Routes
-const loginRoutes = require("./routes/loginRoutes");
+const loginRoutes = require("./api/routes/loginRoutes");
 app.get("/api/login", loginRoutes);
 
-//const userRoutes = require("./routes/userRoutes");
-//app.use("/api/users", userRoutes);
+const userRoutes = require("./api/routes/userRoutes");
+app.use("/api/users", userRoutes);
 //#endregion
 
 app.get("/dene", (req, res) => {
@@ -37,6 +38,10 @@ app.get("/dene", (req, res) => {
     .catch((error) => console.error("Hata:", error));
 });
 
-app.listen(port, () => {
-  console.log(`Sunucu ${port} portunda çalışıyor...`);
+app.listen(PORT, () => {
+  console.log(
+    "Sunucu",
+    `http://localhost:${PORT}/api`,
+    "portunda çalışıyor...",
+  );
 });

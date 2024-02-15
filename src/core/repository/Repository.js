@@ -1,3 +1,5 @@
+"use strict";
+
 module.exports = class BaseRepository {
   constructor(model) {
     this._model = model;
