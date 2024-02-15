@@ -1,6 +1,6 @@
-const userService = require("../src/core/services/UserService");
+const userService = require("../core/services/UserService");
 const User = require("../src/core/entities/User");
-const Reponse = require("../src/core/dtos/response/Response");
+const Response = require("../src/core/dtos/response/Response");
 
 exports.createUser = async (req, res) => {
   try {

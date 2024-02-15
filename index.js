@@ -12,10 +12,10 @@ connectDatabase();
 
 //#region Routes
 const loginRoutes = require("./routes/loginRoutes");
-app.use("/api/login", loginRoutes);
+app.get("/api/login", loginRoutes);
 
-const userRoutes = require("./routes/userRoutes");
-app.use("/api/users", userRoutes);
+//const userRoutes = require("./routes/userRoutes");
+//app.use("/api/users", userRoutes);
 //#endregion
 
 app.get("/dene", (req, res) => {
@@ -26,28 +26,13 @@ app.get("/dene", (req, res) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      username: "admin",
+      email: "admin",
       password: "password",
     }),
   })
     .then((response) => response.json())
     .then((data) => {
-      const token = data.token; // Göndermek istediğiniz token
-
-      fetch("http://localhost:3000/api/user/getData", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // Tokenı Authorization başlığında gönderme
-        },
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(data);
-        })
-        .catch((error) => {
-          console.error("Hata:", error);
-        });
+      console.log(data);
     })
     .catch((error) => console.error("Hata:", error));
 });

@@ -1,25 +1,38 @@
 "use strict";
 
-const userRepository = require("../repository/UserRepository");
+const UserRepository = require("../repository/UserRepository");
 
-module.exports = class UserService {
+class UserService {
+  constructor() {
+    this.userRepository = new UserRepository();
+  }
+
   getAllAsync = async () => {
-    return await userRepository.getAllAsync();
+    return await this.userRepository.getAllAsync();
   };
 
   getAsync = async (id) => {
-    return await userRepository.getAsync(id);
+    return await this.userRepository.getAsync(id);
   };
 
   addAsync = async (user) => {
-    return await userRepository.addAsync(user);
+    return await this.userRepository.addAsync(user);
   };
 
   updateAsync = async (id, user) => {
-    return await userRepository.updateAsync(id, user);
+    return await this.userRepository.updateAsync(id, user);
   };
 
   removeAsync = async (id) => {
-    return await userRepository.removeAsync(id);
+    return await this.userRepository.removeAsync(id);
   };
-};
+
+  findByEmailAndPasswordAsync = async (email, password) => {
+    return await this.userRepository.findByEmailAndPasswordAsync(
+      email,
+      password,
+    );
+  };
+}
+
+module.exports = new UserService();
