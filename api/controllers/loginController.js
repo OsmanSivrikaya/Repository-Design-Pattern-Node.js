@@ -10,21 +10,14 @@ class LoginController {
 
   login = async (req, res) => {
     try {
-      console.log("sda");
-
       const { email, password } = req.body;
       const user = await this.userService.findByEmailAndPasswordAsync(
         email,
         password,
       );
       if (user)
-        res
-          .status(200)
-          .json(new Response(true, "User created successfully", savedUser));
-      else
-        res
-          .status(400)
-          .json(new Response(true, "You havent account", savedUser));
+        res.status(200).json(new Response(true, "Login successfully", user));
+      else res.status(400).json(new Response(false, "You havent account", user));
     } catch (error) {
       res.status(400).json(new Response(false, error.message, null));
     }

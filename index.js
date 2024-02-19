@@ -13,29 +13,30 @@ app.use(cors());
 
 //#region Routes
 const loginRoutes = require("./api/routes/loginRoutes");
-app.get("/api/login", loginRoutes);
+app.use("/api/login", loginRoutes);
 
 const userRoutes = require("./api/routes/userRoutes");
 app.use("/api/users", userRoutes);
 //#endregion
 
 app.get("/dene", (req, res) => {
+  var data = {
+    email: "admin@gmail.com",
+    password: "password",
+  };
   // İstemci tarafında bir POST isteği gönderme
   fetch("http://localhost:3000/api/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({
-      email: "admin",
-      password: "password",
-    }),
+    body: JSON.stringify(data),
   })
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
     })
-    .catch((error) => console.error("Hata:", error));
+    .catch((error) => console.error("Hata verdi:", error));
 });
 
 app.listen(PORT, () => {

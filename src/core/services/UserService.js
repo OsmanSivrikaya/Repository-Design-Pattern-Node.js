@@ -4,7 +4,7 @@ const UserRepository = require("../repository/UserRepository");
 
 class UserService {
   constructor() {
-    this.userRepository = new UserRepository();
+    this.userRepository = UserRepository;
   }
 
   getAllAsync = async () => {
